@@ -74,7 +74,8 @@ extension MapsLikeViewController: OverlayContainerViewControllerDelegate {
         return notchHeight(for: notch, availableSpace: availableSpace)
     }
 
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
+                                        scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [Weak<UIScrollView>] {
         return [Weak((overlayViewController as? SearchViewController)?.tableView)]
     }
 

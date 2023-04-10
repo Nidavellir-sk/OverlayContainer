@@ -95,7 +95,7 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
         }
     }
     
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [Weak<UIScrollView>] {
         return []
     }
 

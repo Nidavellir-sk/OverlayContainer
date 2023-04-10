@@ -99,9 +99,8 @@ extension ShortcutsLikeViewController: OverlayContainerViewControllerDelegate {
         }
     }
 
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
-        guard let scrollView = (overlayViewController as? SearchViewController)?.tableView else { return [] }
-        return [scrollView]
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [Weak<UIScrollView>] {
+        return [Weak((overlayViewController as? SearchViewController)?.tableView)]
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,

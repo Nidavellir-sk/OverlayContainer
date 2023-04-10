@@ -78,7 +78,7 @@ extension ModalNavigationViewController: OverlayContainerViewControllerDelegate 
         }
     }
 
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [Weak<UIScrollView>] {
         return []
     }
 
