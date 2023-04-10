@@ -285,30 +285,6 @@ open class OverlayContainerViewController: UIViewController {
         translationDrivers = drivers
     }
 
-    
-//    private func loadTranslationDrivers() {
-//        guard let translationController = translationController else { return }
-//
-//        translationDrivers.forEach { $0.clean() }
-//        translationDrivers.removeAll()
-//        var drivers: [OverlayTranslationDriver] = []
-//        let panGestureDriver = PanGestureOverlayTranslationDriver(
-//            translationController: translationController,
-//            panGestureRecognizer: overlayPanGesture
-//        )
-//        drivers.append(panGestureDriver)
-//
-//        for scrollView in drivingScrollViews {
-//            overlayPanGesture.drivingScrollView = scrollView
-//            let driver = ScrollViewOverlayTranslationDriver(
-//                translationController: translationController,
-//                scrollView: scrollView
-//            )
-//            drivers.append(driver)
-//        }
-//        translationDrivers = drivers
-//    }
-
     private func setNeedsOverlayContainerHeightUpdate() {
         needsOverlayContainerHeightUpdate = true
         viewIfLoaded?.setNeedsLayout()

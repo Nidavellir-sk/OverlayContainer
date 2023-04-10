@@ -55,8 +55,7 @@ extension ModalNavigationViewController: OverlayNavigationViewControllerDelegate
     func overlayNavigationViewController(_ navigationController: OverlayNavigationViewController,
                                          didShow viewController: UIViewController,
                                          animated: Bool) {
-        guard let scrollView = (viewController as? SearchViewController)?.tableView else { return }
-        overlayController.drivingScrollViews = [scrollView]
+        overlayController.drivingScrollViews = [Weak((viewController as? SearchViewController)?.tableView)]
     }
 }
 
