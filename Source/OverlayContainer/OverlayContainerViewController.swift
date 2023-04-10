@@ -5,6 +5,19 @@
 //  Created by Gaétan Zanella on 12/11/2018.
 //
 
+public class Weak<T: AnyObject>: Equatable {
+    weak var value: T?
+    
+    public init(_ value: T?) {
+        self.value = value
+    }
+    
+    public static func == (lhs: Weak<T>, rhs: Weak<T>) -> Bool {
+        return lhs.value === rhs.value
+    }
+}
+
+
 import UIKit
 
 /// A `OverlayContainerViewController` is a container view controller that manages one or more
@@ -62,9 +75,9 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     /// The scroll view managing the overlay translation.
-    weak open var drivingScrollView: UIScrollView? {
+    open var drivingScrollViews: [Weak<UIScrollView>?] = [] {
         didSet {
-            guard drivingScrollView !== oldValue else { return }
+            guard drivingScrollViews != oldValue else { return }
             guard isViewLoaded else { return }
             loadTranslationDrivers()
         }
@@ -263,10 +276,8 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     private func loadTranslationDrivers() {
-        guard let translationController = translationController,
-            let overlayController = topViewController else {
-                return
-        }
+        guard let translationController = translationController else { return }
+        
         translationDrivers.forEach { $0.clean() }
         translationDrivers.removeAll()
         var drivers: [OverlayTranslationDriver] = []
@@ -275,17 +286,41 @@ open class OverlayContainerViewController: UIViewController {
             panGestureRecognizer: overlayPanGesture
         )
         drivers.append(panGestureDriver)
-        let scrollView = drivingScrollView ?? configuration.scrollView(drivingOverlay: overlayController)
-        if let scrollView = scrollView {
-            overlayPanGesture.drivingScrollView = scrollView
+        
+        for drivingScrollView in drivingScrollViews.compactMap({ $0?.value }) {
+            overlayPanGesture.drivingScrollView = drivingScrollView
             let driver = ScrollViewOverlayTranslationDriver(
                 translationController: translationController,
-                scrollView: scrollView
+                scrollView: drivingScrollView
             )
             drivers.append(driver)
         }
         translationDrivers = drivers
     }
+
+    
+//    private func loadTranslationDrivers() {
+//        guard let translationController = translationController else { return }
+//
+//        translationDrivers.forEach { $0.clean() }
+//        translationDrivers.removeAll()
+//        var drivers: [OverlayTranslationDriver] = []
+//        let panGestureDriver = PanGestureOverlayTranslationDriver(
+//            translationController: translationController,
+//            panGestureRecognizer: overlayPanGesture
+//        )
+//        drivers.append(panGestureDriver)
+//
+//        for scrollView in drivingScrollViews {
+//            overlayPanGesture.drivingScrollView = scrollView
+//            let driver = ScrollViewOverlayTranslationDriver(
+//                translationController: translationController,
+//                scrollView: scrollView
+//            )
+//            drivers.append(driver)
+//        }
+//        translationDrivers = drivers
+//    }
 
     private func setNeedsOverlayContainerHeightUpdate() {
         needsOverlayContainerHeightUpdate = true

@@ -65,6 +65,10 @@ class ShowOverlayExampleViewController: UIViewController,
         }
     }
 
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+        return []
+    }
+
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
                                         willTranslateOverlay overlayViewController: UIViewController,
                                         transitionCoordinator: OverlayContainerTransitionCoordinator) {

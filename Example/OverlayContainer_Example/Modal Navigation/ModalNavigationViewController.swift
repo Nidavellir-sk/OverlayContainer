@@ -55,7 +55,8 @@ extension ModalNavigationViewController: OverlayNavigationViewControllerDelegate
     func overlayNavigationViewController(_ navigationController: OverlayNavigationViewController,
                                          didShow viewController: UIViewController,
                                          animated: Bool) {
-        overlayController.drivingScrollView = (viewController as? SearchViewController)?.tableView
+        guard let scrollView = (viewController as? SearchViewController)?.tableView else { return }
+        overlayController.drivingScrollViews = [scrollView]
     }
 }
 
@@ -76,6 +77,10 @@ extension ModalNavigationViewController: OverlayContainerViewControllerDelegate 
         case .minimum:
             return availableSpace * 1 / 4
         }
+    }
+
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+        return []
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,

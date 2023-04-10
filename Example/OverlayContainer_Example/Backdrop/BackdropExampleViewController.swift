@@ -65,9 +65,9 @@ extension BackdropExampleViewController: OverlayContainerViewControllerDelegate 
         return notchHeight(for: notch, availableSpace: availableSpace)
     }
 
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView? {
-        return (overlayViewController as? SearchViewController)?.tableView
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+        guard let scrollView = (overlayViewController as? SearchViewController)?.tableView else { return [] }
+        return [scrollView]
     }
 
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,

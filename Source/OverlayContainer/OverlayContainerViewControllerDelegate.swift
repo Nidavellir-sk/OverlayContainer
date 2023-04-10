@@ -42,9 +42,9 @@ public protocol OverlayContainerViewControllerDelegate: AnyObject {
     /// - parameter containerViewController: The container requesting this information.
     /// - parameter overlayViewController: The overlay view controller.
     ///
-    /// - returns: A scroll view to use as a translation driver.
+    /// - returns: A scroll views to use as a translation driver.
     func overlayContainerViewController(_ containerViewController: OverlayContainerViewController,
-                                        scrollViewDrivingOverlay overlayViewController: UIViewController) -> UIScrollView?
+                                        scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView]
 
     /// Asks the delegate if the container should drag the overlay view controller
     /// when the user starts a pan gesture at the specified location.

@@ -63,6 +63,10 @@ private class OverlayContainerDelegateImplementation: OverlayContainerViewContro
         }
         return height(for: Notch.allCases[index])
     }
+    
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+        return []
+    }
 }
 
 class OverlayNotchHeightTest: QuickSpec {

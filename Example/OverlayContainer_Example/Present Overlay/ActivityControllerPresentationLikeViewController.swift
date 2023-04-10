@@ -94,6 +94,10 @@ class ActivityControllerPresentationLikeViewController: UIViewController,
             return availableSpace - 200
         }
     }
+    
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [UIScrollView] {
+        return []
+    }
 
     // MARK: - Private
 
