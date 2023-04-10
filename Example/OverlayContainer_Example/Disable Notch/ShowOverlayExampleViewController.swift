@@ -65,7 +65,7 @@ class ShowOverlayExampleViewController: UIViewController,
         }
     }
 
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [Weak<UIScrollView>] {
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [WeakOverlayScrollView<UIScrollView>] {
         return []
     }
 

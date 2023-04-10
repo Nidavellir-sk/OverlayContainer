@@ -64,7 +64,7 @@ private class OverlayContainerDelegateImplementation: OverlayContainerViewContro
         return height(for: Notch.allCases[index])
     }
     
-    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [Weak<UIScrollView>] {
+    func overlayContainerViewController(_ containerViewController: OverlayContainerViewController, scrollViewsDrivingOverlay overlayViewController: UIViewController) -> [WeakOverlayScrollView<UIScrollView>] {
         return []
     }
 }

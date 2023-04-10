@@ -62,7 +62,7 @@ open class OverlayContainerViewController: UIViewController {
     }
 
     /// The scroll view managing the overlay translation.
-    open var drivingScrollViews: [Weak<UIScrollView>?] = [] {
+    open var drivingScrollViews: [WeakOverlayScrollView<UIScrollView>?] = [] {
         didSet {
             guard drivingScrollViews != oldValue else { return }
             guard isViewLoaded else { return }

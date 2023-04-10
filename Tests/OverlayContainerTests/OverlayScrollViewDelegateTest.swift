@@ -28,7 +28,7 @@ class OverlayScrollViewDelegateTest: QuickSpec {
         }
 
         it("should observe the scroll view delegate") {
-            overlayContainer.drivingScrollViews = [Weak(viewController.scrollView)]
+            overlayContainer.drivingScrollViews = [WeakOverlayScrollView(viewController.scrollView)]
             expect(viewController.scrollView.delegate).toNot(beNil())
             viewController.scrollView.delegate = viewController
             expect(viewController.scrollView.delegate).toNot(beIdenticalTo(viewController))
@@ -37,7 +37,7 @@ class OverlayScrollViewDelegateTest: QuickSpec {
         it("should restore the scroll view delegate") {
             viewController.scrollView.delegate = viewController
             expect(viewController.scrollView.delegate).to(beIdenticalTo(viewController))
-            overlayContainer.drivingScrollViews = [Weak(viewController.scrollView)]
+            overlayContainer.drivingScrollViews = [WeakOverlayScrollView(viewController.scrollView)]
             expect(viewController.scrollView.delegate).toNot(beIdenticalTo(viewController))
             overlayContainer.drivingScrollViews = []
             expect(viewController.scrollView.delegate).to(beIdenticalTo(viewController))
@@ -47,8 +47,8 @@ class OverlayScrollViewDelegateTest: QuickSpec {
             let secondaryContainer = OverlayContainerViewController()
             secondaryContainer.viewControllers = [viewController]
             secondaryContainer.loadViewIfNeeded()
-            overlayContainer.drivingScrollViews = [Weak(viewController.scrollView)]
-            secondaryContainer.drivingScrollViews = [Weak(viewController.scrollView)]
+            overlayContainer.drivingScrollViews = [WeakOverlayScrollView(viewController.scrollView)]
+            secondaryContainer.drivingScrollViews = [WeakOverlayScrollView(viewController.scrollView)]
             viewController.scrollView.delegate = viewController
             expect(viewController.scrollView.delegate).toNot(beIdenticalTo(viewController))
         }
@@ -61,10 +61,10 @@ class OverlayScrollViewDelegateTest: QuickSpec {
             viewController.scrollView.delegate = viewController
             expect(viewController.scrollView.delegate).to(beIdenticalTo(viewController))
 
-            overlayContainer.drivingScrollViews = [Weak(viewController.scrollView)]
+            overlayContainer.drivingScrollViews = [WeakOverlayScrollView(viewController.scrollView)]
             expect(viewController.scrollView.delegate).toNot(beIdenticalTo(viewController))
 
-            secondaryContainer.drivingScrollViews = [Weak(viewController.scrollView)]
+            secondaryContainer.drivingScrollViews = [WeakOverlayScrollView(viewController.scrollView)]
             expect(viewController.scrollView.delegate).toNot(beIdenticalTo(viewController))
 
             secondaryContainer.drivingScrollViews = []
