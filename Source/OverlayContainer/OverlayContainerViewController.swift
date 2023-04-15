@@ -275,21 +275,21 @@ open class OverlayContainerViewController: UIViewController {
             panGestureRecognizer: overlayPanGesture
         )
         drivers.append(panGestureDriver)
-        
-        if drivingScrollViews.isEmpty {
-            guard let scrollView = configuration.scrollView(drivingOverlay: overlayController) else { return }
+
+        if !drivingScrollViews.isEmpty {
+            for drivingScrollView in drivingScrollViews.compactMap({ $0.value }) {
+                // overlayPanGesture.drivingScrollView = drivingScrollView // MARK: Is this neccessary ?
+                let driver = ScrollViewOverlayTranslationDriver(
+                    translationController: translationController,
+                    scrollView: drivingScrollView
+                )
+                drivers.append(driver)
+            }
+        } else if let scrollView = configuration.scrollView(drivingOverlay: overlayController) {
+                overlayPanGesture.drivingScrollView = scrollView
             let driver = ScrollViewOverlayTranslationDriver(
                 translationController: translationController,
                 scrollView: scrollView
-            )
-            drivers.append(driver)
-        }
-        
-        for drivingScrollView in drivingScrollViews.compactMap({ $0.value }) {
-            overlayPanGesture.drivingScrollView = drivingScrollView
-            let driver = ScrollViewOverlayTranslationDriver(
-                translationController: translationController,
-                scrollView: drivingScrollView
             )
             drivers.append(driver)
         }

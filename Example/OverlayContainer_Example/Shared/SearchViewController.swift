@@ -74,18 +74,19 @@ class SearchViewController: UIViewController,
         header.delegate = self
         view.backgroundColor = .white
         view.addSubview(tableView)
-        view.addSubview(header)
+//        view.addSubview(header)
         header.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        header.pinToSuperview(edges: [.left, .right])
-        if #available(iOS 11.0, *) {
-            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        } else {
-            header.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-        }
+//        header.pinToSuperview(edges: [.left, .right])
+//        if #available(iOS 11.0, *) {
+//            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        } else {
+//            header.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+//        }
         header.showsCloseAction = showsCloseAction
         tableView.dataSource = self
         tableView.pinToSuperview(edges: [.left, .right, .bottom])
-        tableView.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
+//        tableView.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
         tableView.delegate = self
     }
 }

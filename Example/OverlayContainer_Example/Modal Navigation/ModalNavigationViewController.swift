@@ -26,13 +26,15 @@ class ModalNavigationViewController: UIViewController, SearchViewControllerDeleg
         overlayNavigationController.delegate = self
         overlayController.viewControllers = [MapsViewController(), overlayNavigationController]
         pushSearchViewController()
+        overlayNavigationController.view.backgroundColor = .brown
         addChild(overlayController, in: view)
     }
 
     // MARK: - SearchViewControllerDelegate
 
     func searchViewControllerDidSelectARow(_ searchViewController: SearchViewController) {
-        pushSearchViewController()
+        pushSelectedCellViewController()
+//        pushSearchViewController()
     }
 
     func searchViewControllerDidSelectCloseAction(_ searchViewController: SearchViewController) {
@@ -46,6 +48,32 @@ class ModalNavigationViewController: UIViewController, SearchViewControllerDeleg
         search.delegate = self
         overlayNavigationController.push(search, animated: true)
     }
+    
+    private func pushSelectedCellViewController() {
+        let vc = TestViewController()
+        overlayNavigationController.push(vc, animated: true)
+    }
+}
+
+class TestViewController: UIViewController {
+    
+    let tableView = UITableView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .cyan
+        tableView.backgroundColor = .blue
+        tableView.frame = view.bounds
+        view.addSubview(tableView)
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15)
+        ])
+    }
 }
 
 extension ModalNavigationViewController: OverlayNavigationViewControllerDelegate {
@@ -55,7 +83,11 @@ extension ModalNavigationViewController: OverlayNavigationViewControllerDelegate
     func overlayNavigationViewController(_ navigationController: OverlayNavigationViewController,
                                          didShow viewController: UIViewController,
                                          animated: Bool) {
-        overlayController.drivingScrollViews = [WeakOverlayScrollView((viewController as? SearchViewController)?.tableView)]
+        if let testVc = viewController as? TestViewController {
+            overlayController.drivingScrollViews = [WeakOverlayScrollView(testVc.tableView)]
+        } else {
+            overlayController.drivingScrollViews = [WeakOverlayScrollView((viewController as? SearchViewController)?.tableView)]
+        }
     }
 }
 
@@ -86,6 +118,7 @@ extension ModalNavigationViewController: OverlayContainerViewControllerDelegate 
                                         shouldStartDraggingOverlay overlayViewController: UIViewController,
                                         at point: CGPoint,
                                         in coordinateSpace: UICoordinateSpace) -> Bool {
+        return true
         guard let header = (overlayNavigationController.topViewController as? SearchViewController)?.header else {
             return false
         }
@@ -93,4 +126,3 @@ extension ModalNavigationViewController: OverlayContainerViewControllerDelegate 
         return header.bounds.contains(convertedPoint)
     }
 }
-
